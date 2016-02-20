@@ -36,8 +36,8 @@ mybuffer.data()[position].right=SHRT_MAX;
 ```
 ### Data
 ```
-`const S16S* constData() const` return an `S16S` array, read only.
-`S16S* data()` return an `S16S` array, read and write
+`const S16S* constData() const` returns an `S16S` array, read only.
+`S16S* data()` returns an `S16S` array, read and write
 See also Qt `QAudioBuffer` for inner functions.
 ```
 
