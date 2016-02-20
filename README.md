@@ -42,9 +42,8 @@ mybuffer.data()[position].right=SHRT_MAX;
 See also Qt `QAudioBuffer` for inner functions.
 
 ### Operators
-```C++
 `QAudioLibBuffer` allow to manipulate buffers through its operators:
-
+```C++
 `QAudioLibBuffer operator<<(const QAudioLibBuffer &x) const` append buffers
 `QAudioLibBuffer operator*(const QAudioLibBuffer &x) const` multiplicate buffers
 `QAudioLibBuffer operator*(const qreal x) const` multiplicate for a costant
