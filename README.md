@@ -35,11 +35,10 @@ mybuffer.data()[position].left=val;
 mybuffer.data()[position].right=SHRT_MAX;
 ```
 ### Data
-```
 `const S16S* constData() const` returns an `S16S` array, read only.
 `S16S* data()` returns an `S16S` array, read and write
-See also Qt `QAudioBuffer` for inner functions.
 ```
+See also Qt `QAudioBuffer` for inner functions.
 
 ### Operators
 `QAudioLibBuffer` allow to manipulate buffers through its operators:
