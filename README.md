@@ -4,7 +4,7 @@ An audio management library written in Qt
 This library allows to manage stereo audio signal, 16bit PCM. It provides `QAudioLibBuffer` that overloads and improve the Qt `QAudioBuffer`, `QAudioLibFreqBuffer` that works with complex number to work in the frequency domain and `Mathematics` class that perform common signal processing operations.
 
 ## Default format
-Currently moment `QAudioLib` works with an own audio format: `DefaultAudioFormat`:
+Currently `QAudioLib` works with an own audio format: `DefaultAudioFormat`:
 ```C++
 setByteOrder(QAudioFormat::LittleEndian);
 setChannelCount(2);
