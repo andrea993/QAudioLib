@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 
     cout<<"Generate 1s square wave..."<<endl;
     timer.start();
-    QAudioLibBuffer w=Mathematics::squarewave(500,1);
+    QAudioLibBuffer w=Mathematics::squarewave(500,1.0);
     cout<<"Done in "<<timer.elapsed()<<"ms"<<endl;
     cout<<endl;
 
@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 
     cout<<"Generate 5000 samples sin wave..."<<endl;
     timer.start();
-    w=Mathematics::sinwave(500,5000/44100.0);
+    w=Mathematics::sinwave(500,static_cast<int>(5000/44100.0));
     cout<<"Done in "<<timer.elapsed()<<"ms"<<endl;
     cout<<endl;
 
@@ -56,9 +56,9 @@ int main(int argc, char *argv[])
     cout<<"Done in "<<timer.elapsed()<<"ms"<<endl;
     cout<<endl;
 
-    cout<<"Generate 1s sqaure wave..."<<endl;
+    cout<<"Generate 1s sin wave..."<<endl;
     timer.start();
-    w=Mathematics::squarewave(500,1);
+    w=Mathematics::sinwave(500,1.0);
     cout<<"Done in "<<timer.elapsed()<<"ms"<<endl;
     cout<<endl;
 
