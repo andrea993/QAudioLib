@@ -4,7 +4,7 @@ An audio management library written in Qt
 This library allows to manage stereo audio signal, 16bit PCM with a sampling rate of 44100Hz. It provides `QAudioLibBuffer` that overloads and improve the Qt `QAudioBuffer`, `QAudioLibFreqBuffer` that works with complex number to work in the frequency domain and `Mathematics` class that perform common signal processing operations.
 
 ##Build
-This library is static, if you want to build and run the example benchmark `TESTqAudioLib` do the follow:
+This library is static, if you want to build and run the example benchmark `TESTqAudioLib` do the following:
 ````bash
 #build library
 cd QaudioLib
