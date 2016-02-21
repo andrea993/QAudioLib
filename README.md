@@ -143,7 +143,7 @@ This class provides a list of static functions to generate waveforms and to anal
 
 #### Sound generation
 ```C++
-static QAudioLibBuffer sinwave(qreal f, qreal sec); //generates a new sinusoidal waveform of frequency `f` and duration `sec`
+static QAudioLibBuffer sinwave(qreal f, qreal sec); //generates a new sinusoidal waveform (with rotation matrix) of frequency `f` and duration `sec`
 static QAudioLibBuffer squarewave(qreal f, qreal sec); //generates a new sqaure waveform of frequency `f` and duration `sec`
 ```
 
