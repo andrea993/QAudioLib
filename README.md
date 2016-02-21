@@ -7,7 +7,7 @@ This library allows to manage stereo audio signals, 16bit PCM with a sampling ra
 This library is static, if you want to build and run the example benchmark `TESTqAudioLib` do the following:
 ````bash
 #build library
-cd QaudioLib
+cd QAudioLib
 qmake *.pro
 make
 
