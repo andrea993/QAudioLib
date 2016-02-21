@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 
     cout<<"Generate 5000 samples sin wave..."<<endl;
     timer.start();
-    w=Mathematics::sinwave(500,static_cast<int>(5000/44100.0));
+    w=Mathematics::sinwave(500,5000/44100.0);
     cout<<"Done in "<<timer.elapsed()<<"ms"<<endl;
     cout<<endl;
 
