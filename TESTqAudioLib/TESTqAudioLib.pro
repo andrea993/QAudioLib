@@ -9,12 +9,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp
 
-LIBS += -L$$PWD/../build-qAudiolib-Unnamed-Debug/ -lqAudiolib
+LIBS += -L$$PWD/../ -lqAudiolib
 
-INCLUDEPATH += $$PWD/../qAudiolib
-DEPENDPATH += $$PWD/../qAudiolib
+INCLUDEPATH += $$PWD/../
+DEPENDPATH += $$PWD/../
 
 
 HEADERS += \
     stopobject.h
+    
+    
 
