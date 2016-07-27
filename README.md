@@ -151,6 +151,7 @@ static QAudioLibBuffer squarewave(qreal f, qreal sec); //generates a new sqaure 
 ```C++
 static QAudioLibBuffer conv(QAudioLibBuffer &u ,QAudioLibBuffer &v); //does the convolution of two signals
 static QAudioLibBuffer corr(QAudioLibBuffer &u ,QAudioLibBuffer &v);//does the cross correlation of two signals
+static QAudioLibBuffer filter(QAudioLibBuffer &x, int N, char type, int f0, int f1=0); //filters the signal (type can be 'l': lowpass, 'h' highpass, 'b' bandpass) set f1 only for bandpass filters
 ```
 
 #### Fourier transform
