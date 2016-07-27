@@ -67,6 +67,7 @@ public:
     QAudioLibBuffer operator*(const QAudioLibBuffer &x) const;
     QAudioLibBuffer operator*(const qreal x) const;
     QAudioLibBuffer operator+(const QAudioLibBuffer &x) const;
+    QAudioLibBuffer subBuffer(int k0, int k1) const; //return a subBuffer
 };
 
 class QAudioLibFreqBuffer

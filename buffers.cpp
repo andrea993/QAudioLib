@@ -70,6 +70,19 @@ QAudioLibBuffer QAudioLibBuffer::operator<<(const QAudioLibBuffer &x) const
      return y;
  }
 
+  QAudioLibBuffer QAudioLibBuffer::subBuffer(int k0, int k1) const
+  {
+      QAudioLibBuffer y(qAbs(k0-k1)+1);
+      int k=qMin(k0,k1);
+      for (int i=0;i<y.frameCount();i++)
+      {
+          y.data()[i].left=this->constData()[i+k].left;
+          y.data()[i].right=this->constData()[i+k].right;
+      }
+
+      return y;
+  }
+
 
  /*
  ******QAudioLibFreqBuffer******
@@ -82,6 +95,7 @@ QAudioLibBuffer QAudioLibBuffer::operator<<(const QAudioLibBuffer &x) const
          y.data()[i].left=qcomplex(x.constData()[i].left);
          y.data()[i].right=qcomplex(x.constData()[i].right);
      }
+
      return y;
  }
 
@@ -119,6 +133,7 @@ QAudioLibBuffer QAudioLibBuffer::operator<<(const QAudioLibBuffer &x) const
          y.data()[i].left=this->constData()[i].left*x;
          y.data()[i].right=this->constData()[i].right*x;
      }
+
      return y;
  }
 
@@ -131,6 +146,7 @@ QAudioLibBuffer QAudioLibBuffer::operator<<(const QAudioLibBuffer &x) const
          y.data()[i].left=abs(this->constData()[i].left);
          y.data()[i].right=abs(this->constData()[i].right);
      }
+
      return y;
  }
 

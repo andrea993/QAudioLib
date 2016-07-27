@@ -14,6 +14,7 @@
 #include <QTime>
 #include <QThread>
 #include <QtDebug>
+#include <QFile>
 
 #include <qaudiolib.h>
 #include "stopobject.h"
@@ -65,17 +66,14 @@ int main(int argc, char *argv[])
     cout<<"Generate 1s white noise..."<<endl;
     timer.start();
     for(int i=0;i<w.frameCount();i++)
-        w.data()[i].left=w.data()[i].right=qrand()%SHRT_MAX;
+        w.data()[i].left=w.data()[i].right=((qrand()%USHRT_MAX)-SHRT_MAX)*0.5;
     int lengthw=w.byteCount();
     cout<<"Done in "<<timer.elapsed()<<"ms"<<endl;
     cout<<endl;
 
-    cout<<"Lowpass 2000Hz filtering..."<<endl;
+    cout<<"Lowpass 1000Hz filtering..."<<endl;
     timer.start();
-    fft=Mathematics::fft(w);
-    for(int i=2000/fft.deltaf();i<fft.frameCount();i++)
-        fft.data()[i].left=fft.data()[i].right=qcomplex(0);
-    w=Mathematics::ifft(fft);
+    w=Mathematics::filter(w,50,'l',1000);
     cout<<"Done in "<<timer.elapsed()<<"ms"<<endl;
     cout<<endl;
 
@@ -89,6 +87,7 @@ int main(int argc, char *argv[])
     QBuffer buffer(&a);
     buffer.setData(reinterpret_cast<const char*>(w.constData()),lengthw);
     buffer.open(QIODevice::ReadOnly);
+
     QAudioOutput* audio = new QAudioOutput(format, &a);
     audio->start(&buffer);
 

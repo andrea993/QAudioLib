@@ -16,10 +16,10 @@ QAudioLibBuffer Mathematics::conv(QAudioLibBuffer &u ,QAudioLibBuffer &v)
 
     for(int k=0;k<y.frameCount();k++)
     {
-        for (int h=k;h<y.frameCount();h++)
+        for (int h=qMax(0,k-v.frameCount());h<=qMin(k,u.frameCount()-1);h++)
         {
-            y.data()[k].left=y.constData()[k].left+u.constData()[k].left*v.constData()[k-h].left;
-            y.data()[k].right=y.constData()[k].right+u.constData()[k].right*v.constData()[k-h].right;
+            y.data()[k].left=y.constData()[k].left+u.constData()[h].left*v.constData()[k-h].left;
+            y.data()[k].right=y.constData()[k].right+u.constData()[h].right*v.constData()[k-h].right;
         }
     }
     return y; 
@@ -31,10 +31,10 @@ QAudioLibBuffer Mathematics::corr(QAudioLibBuffer &u ,QAudioLibBuffer &v)
 
     for(int k=0;k<y.frameCount();k++)
     {
-        for (int h=0;h<y.frameCount()-k;h++)
+        for (int h=0;h<=qMin(v.frameCount()-1,qMin(k,u.frameCount()-1));h++)
         {
-            y.data()[k].left=y.constData()[k].left+u.constData()[k].left*v.constData()[k+h].left;
-            y.data()[k].right=y.constData()[k].right+u.constData()[k].right*v.constData()[k+h].right;
+            y.data()[k].left=y.constData()[k].left+u.constData()[h].left*v.constData()[k+h].left;
+            y.data()[k].right=y.constData()[k].right+u.constData()[h].right*v.constData()[k+h].right;
         }
     }
     return y;
@@ -211,6 +211,53 @@ QAudioLibBuffer Mathematics::ifft(const QAudioLibFreqBuffer & x)
         out.data()[i].right=c.constData()[i].right.real();
     }
     return out;
+}
+
+QAudioLibBuffer Mathematics::bandpass(QAudioLibBuffer &x, int N, int f0, int f1)
+{
+     QAudioLibBuffer y(x.frameCount());
+     qreal T=1.0/QAudioLibBuffer::getDefaultFormat().sampleRate();
+     QAudioBuffer::StereoFrame<qreal> y_k;
+     qreal N_2=N/2.0;
+
+     for (int k=0;k<y.frameCount();k++)
+     {
+         y_k.left=y_k.right=0;
+         for(int h=qMax(0,k-x.frameCount());h<=qMin(k,N-1);h++)
+         {
+             qreal fir_h=2.0*(f1*sinc(2*f1*(h-N_2)*T)-f0*sinc(2*f0*(h-N_2)*T))*hanning(h-N_2,N)*T;
+             y_k.left= y_k.left+fir_h*x.constData()[k-h].left;
+             y_k.right=y_k.right+fir_h*x.constData()[k-h].right;
+         }
+         if (qAbs(y_k.left)>32767.0 || qAbs(y_k.right)>32767.0)
+         {
+             qDebug()<<"ERRORE "<<y_k.left<<" "<<y_k.right;
+         }
+         y.data()[k].left=static_cast<qint16>(y_k.left);
+         y.data()[k].right=static_cast<qint16>(y_k.right);
+     }
+
+    return y;
+}
+
+
+QAudioLibBuffer Mathematics::filter(QAudioLibBuffer &x, int N, char type, int f0, int f1)
+{
+    assert(f0<QAudioLibBuffer::getDefaultFormat().sampleRate()/2);
+
+    switch(type)
+    {
+        case 'l':
+            return bandpass(x,N,0,f0);
+        case 'h':
+            return bandpass(x,N,f0,QAudioLibBuffer::getDefaultFormat().sampleRate()/2);
+        case 'b':
+            assert(f0<f1);
+            return bandpass(x,N,f0,f1);
+    }
+
+    return QAudioLibBuffer(0);
+
 }
 
 
