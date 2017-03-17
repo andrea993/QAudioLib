@@ -49,7 +49,7 @@ Play noise...
 Got a buffer underflow! <--This is not a problem, it warns that the buffer is ended
 ```
 
-##Code documentation
+## Code documentation
 
 ### Default format
 Currently `QAudioLib` works with an own audio format: `DefaultAudioFormat`:
@@ -65,7 +65,7 @@ Use `QAudioLibBuffer::getDefaultFormat()` to get the default
 format.
 
 ### QAudioLibBuffer
-####Constructors
+#### Constructors
 ```C++
 QAudioLibBuffer(); //a void, no samples buffer
 QAudioLibBuffer(const QAudioBuffer & other); //a copy of `other` buffer
